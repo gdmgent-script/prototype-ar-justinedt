@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokter Bibber</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #d9534f;
+        }
+        #game-area {
+            width: 300px;
+            height: 300px;
+            background-color: white;
+            border: 5px solid black;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dokter Bibber Spel</h1>
+    <p>Raak de spatiebalk niet aan met de Makey Makey!</p>
+    <div id="game-area">Blijf stil!</div>
+    <audio id="buzz-sound" src="bzz.mp3"></audio>
+    
+    <script>
+        document.addEventListener("keydown", function(event) {
+            if (event.code === "Space") {
+                let buzzSound = document.getElementById("buzz-sound");
+                buzzSound.currentTime = 0;
+                buzzSound.play();
+            }
+        });
+    </script>
+</body>
+</html>
