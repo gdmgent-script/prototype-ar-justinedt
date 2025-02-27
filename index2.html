@@ -3,49 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/biy4nme.css">
     <title>Mother Nature</title>
     <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding-top: 50px;
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding-top: 50px;
+    margin: 0; /* Verwijdert de standaard marge */
+    overflow: hidden; /* Verbergt eventuele schuifbalken */
+    box-sizing: border-box; /* Zorgt ervoor dat padding/border geen invloed heeft op de breedte/hoogte */
+}
+
+h1 {
+    color: #d9534f;
+    font-family: "pf-fuel-grime", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5EM;
         }
-        h1 {
-            color: #d9534f;
-        }
-        #game-area {
-            width: 300px;
-            height: 300px;
-            background-color: white;
-            border: 5px solid black;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: red;
-        }
-        #timer {
-            font-size: 2em;
-            color: black;
-        }
-        button {
-            font-size: 1em;
-            padding: 10px;
-            cursor: pointer;
-        }
+
+#game-area {
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+    position: relative;
+    overflow: hidden; /* Zorgt ervoor dat inhoud niet buiten het element komt */
+    box-sizing: border-box; /* Zorgt ervoor dat padding/border geen invloed heeft op de grootte */
+}
+
+/* Zorg ervoor dat de timer binnen de ruimte past */
+#timer {
+    font-size: 3em;
+    color: black;
+    font-family: "pf-fuel-grime", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+}
+
+button {
+    font-size: 1em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+@keyframes explosion {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    50% {
+        transform: scale(3);
+        opacity: 0.5;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+    100% {
+        transform: scale(5);
+        opacity: 0;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+    }
+}
+
+.explosion {
+    animation: explosion 1s ease-out forwards;
+}
     </style>
 </head>
 <body>
     <h1>Mother Nature Game</h1>
-    <p>Raak de spatiebalk niet aan!</p>
     <div id="game-area">
         <div id="timer">2025</div>
     </div>
     <audio id="buzz-sound" src="bzz.mp3"></audio>
-    <p>De strijd tegen de klok van de natuur begint!</p>
+    <p>De strijd tegen de klok van de natuur begint nu!</p>
     <button onclick="startTimer()">Start</button>
     
     <script>
@@ -60,9 +102,16 @@
                     year++;
                     document.getElementById("timer").textContent = year;
                 } else {
+                    // Voeg explosie-effect toe als het jaar 2040 is bereikt
+                    triggerExplosion();
                     clearInterval(timerInterval);
                 }
             }, 1000);
+        }
+
+        function triggerExplosion() {
+            const gameArea = document.getElementById("game-area");
+            gameArea.classList.add("explosion");
         }
 
         document.addEventListener("keydown", function(event) {
@@ -75,4 +124,3 @@
     </script>
 </body>
 </html>
-
